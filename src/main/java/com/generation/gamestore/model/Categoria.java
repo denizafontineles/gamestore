@@ -1,9 +1,7 @@
 package com.generation.gamestore.model;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,11 +25,9 @@ public class Categoria {
 	@Size(min = 2, max = 200, message = "Tamanho mínimo: 2, Tamano máximo: 200")
 	private String tipo;
 	
-	//1 categoria pode ter vários produtos N (1:N)
-	//Como a Classe Categoria será a Classe Proprietária da Relação, precisamos adicionar alguns parâmetros:
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("categoria")
-	private List<Produto> produto; //receberá todos os Objetos da Classe Produto associadas a cada Objeto da Classe Categoria.
+	private List<Produto> produto;
 
 	public Long getId() {
 		return id;
@@ -56,6 +52,4 @@ public class Categoria {
 	public void setProduto(List<Produto> produto) {
 		this.produto = produto;
 	}
-	
-	
 }

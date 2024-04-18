@@ -26,6 +26,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/categorias")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class CategoriaController {
 	@Autowired
     private CategoriaRepository categoriaRepository;
@@ -66,10 +67,8 @@ public class CategoriaController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
-        
         if(categoria.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        
         categoriaRepository.deleteById(id);              
     }
 }

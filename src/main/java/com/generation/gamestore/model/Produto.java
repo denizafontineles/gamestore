@@ -2,11 +2,8 @@ package com.generation.gamestore.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,17 +38,30 @@ public class Produto {
 	private int quantidade;
 
 	@NotNull(message = "O Atributo Preço é obrigatório")
-	@Column(precision = 8, scale = 2) // DECIMAL(8,2) 
+	@Column(precision = 8, scale = 2)
 	private BigDecimal preco; 
 
+	@NotNull(message = "Insira uma Imagem para seu produto" )
 	private String foto;
 	
 	@UpdateTimestamp
 	private LocalDateTime data;
 	
-	@ManyToOne // vários produtos N pode pertencer a 1 categoria (N:1)
+	@ManyToOne
 	@JsonIgnoreProperties("produto") 
 	private Categoria categoria;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Usuario usuario;
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	public Long getId() {
 		return id;
@@ -124,5 +134,4 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
 }
